@@ -1,6 +1,6 @@
 require 'rubygems'
-# require 'bundler'
-# Bundler.setup
+require 'bundler'
+Bundler.setup
 
 require 'riak'
 require 'haml'

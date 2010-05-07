@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+%html
+  %head
+    %link{:rel => "stylesheet", :type => "text/css", :href => "style.css"}/
+    %title Riak URL Shortener
+  %body
+    %h1 Your URL has been shortened.
+    %div
+      Copy this link:
+      %a{:href => @url}= @url

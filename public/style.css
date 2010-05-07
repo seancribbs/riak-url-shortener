@@ -1,0 +1,46 @@
+body {
+   font-family: Optima, Futura, Helvetica, sans-serif;
+   background: #efe;
+}
+
+h1 { text-align: center; font-weight: normal }
+form, div { 
+   width: 640px; 
+   padding: 1.5em;
+   margin: 0 auto; 
+   background: rgba(0,0,0,0.15); 
+   -moz-border-radius: 1em;
+   -webkit-border-radius: 1em;
+   border-radius: 1em;
+}
+p { line-height: 1.5em; }
+label { margin-right: 5px; font-weight: bold }
+input { font-size: 1.1em; width: 78%; line-height: 1em; }
+button {
+   font-size: 0.8em;
+   border-color: rgb(205,205,205);
+   color: rgb(70,70,70);
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+   border-width: 1px;
+   border-color: rgb(189, 189, 189) rgb(155, 154, 154) rgb(155, 154, 154) rgb(189, 189, 189);
+   border-style: solid;
+   font-family: "Lucida Grande", Tahoma, Arial, sans-serif;
+   padding: 5px 10px;
+   background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.04, rgb(242,242,242)),
+    color-stop(0.25, rgb(225,225,225)),
+    color-stop(0.76, rgb(250,250,250))
+);
+   background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(242,242,242) 4%,
+    rgb(225,225,225) 25%,
+    rgb(250,250,250) 76%
+);
+   background-color: rgb(234,234,234);
+}

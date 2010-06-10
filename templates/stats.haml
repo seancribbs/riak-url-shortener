@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+%html
+  %head
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/style.css"}/
+    %title Riak URL Shortener - URL Statistics
+  %body
+    %h1 Riak URL Shortener - URL Statistics
+    %dl.statistics
+      %dt Shortened URL
+      %dd
+        %a{:href => @url}= @url
+      %dt Target URL
+      %dd
+        %a{:href => @object.data}= @object.data
+      %dt Created
+      %dd= @object.last_modified.to_s
+      %dt Clicks today
+      %dd= @today.to_s
+      %dt Clicks this month
+      %dd= @month
+      %dt Clicks this year
+      %dd= @year
+
+    

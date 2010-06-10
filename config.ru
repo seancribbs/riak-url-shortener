@@ -12,9 +12,10 @@ set :views, ::File.dirname(__FILE__) + '/templates'
 set :haml, {:format => :html5}
 
 # Get our Map-Reduce functions available
-$map_stats = ::File.read("map_stats.js")
-$reduce_stats = ::File.read("reduce_stats.js")
+$map_stats = ::File.read("mapreduce/map_stats.js")
+$reduce_stats = ::File.read("mapreduce/reduce_stats.js")
 
+# Schedule the click tracking for another cycle if using EM
 next_tick = lambda do |b|
   if defined?(EM)
     EM.next_tick(&b)
@@ -23,6 +24,7 @@ next_tick = lambda do |b|
   end
 end
 
+# The shortcode-producing function
 create_shortcode = lambda do |url|
   # 1) MD5 hash the URL to the hexdigest
   # 2) Convert it to a Bignum
@@ -46,6 +48,7 @@ post '/' do
   end
   status 201
   @url = "http://#{request.host_with_port}/#{key}"
+  @stats_url = "#{@url}/stats"
   headers "Location" => @url
   haml :created
 end

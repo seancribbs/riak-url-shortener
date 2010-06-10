@@ -4,7 +4,7 @@ body {
 }
 
 h1 { text-align: center; font-weight: normal }
-form, div { 
+form, div, dl { 
    width: 640px; 
    padding: 1.5em;
    margin: 0 auto; 
@@ -12,6 +12,16 @@ form, div {
    -moz-border-radius: 1em;
    -webkit-border-radius: 1em;
    border-radius: 1em;
+}
+
+dl dt {
+   float: left;
+   font-weight: bold;
+   width: 25%;
+   clear: both;
+}
+dl dd {
+   margin-bottom: 0.5em;
 }
 p { line-height: 1.5em; }
 label { margin-right: 5px; font-weight: bold }

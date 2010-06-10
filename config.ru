@@ -11,6 +11,18 @@ set :public, ::File.dirname(__FILE__) + '/public'
 set :views, ::File.dirname(__FILE__) + '/templates'
 set :haml, {:format => :html5}
 
+# Get our Map-Reduce functions available
+$map_stats = ::File.read("map_stats.js")
+$reduce_stats = ::File.read("reduce_stats.js")
+
+next_tick = lambda do |b|
+  if defined?(EM)
+    EM.next_tick(&b)
+  else
+    b.call
+  end
+end
+
 create_shortcode = lambda do |url|
   # 1) MD5 hash the URL to the hexdigest
   # 2) Convert it to a Bignum
@@ -43,12 +55,38 @@ get '/:code' do
     client = Riak::Client.new
     obj = Riak::Bucket.new(client, 'urls').get(params[:code])
     url = obj.data
+    next_tick.call(lambda {
+                     Riak::Bucket.new(client, "clicks_#{params[:code]}").new.tap do |click|
+                       click.data = Time.now.to_i
+                       click.store(:w => 0)
+                     end
+                   })
     halt 301, {"Location" => url}, []
   rescue Riak::FailedRequest => fr
     case fr.code
     when 404
       not_found(haml(:not_found))
     when 500..599
+      error(503, haml(:error))
+    end
+  end
+end
+
+get '/:code/stats' do
+  begin
+    client = Riak::Client.new
+    @object = Riak::Bucket.new(client, 'urls').get(params[:code])
+    @url = "http://#{request.host_with_port}/#{@object.key}"
+    @stats = Riak::MapReduce.new(client).add("clicks_#{params[:code]}").map($map_stats).reduce($reduce_stats, :keep => true).run.first
+    @today = @stats[Date.today.strftime("%Y-%m-%d")] || 0
+    @month = @stats[Date.today.strftime("%Y-%m")] || 0
+    @year = @stats[Date.today.year.to_s] || 0
+    haml(:stats)
+  rescue Riak::FailedRequest => fr
+    case fr.code
+    when 404
+      not_found(haml(:not_found))
+    else
       error(503, haml(:error))
     end
   end

@@ -34,6 +34,7 @@ create_shortcode = lambda do |url|
 end
 
 get '/' do
+  @message = Riak::Client.new['riak-url-shortener']['message'].raw_data rescue ''
   haml :index
 end
 

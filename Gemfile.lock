@@ -1,0 +1,30 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (3.0.1)
+    daemons (1.1.0)
+    eventmachine (0.12.10)
+    haml (3.0.23)
+    i18n (0.4.2)
+    rack (1.2.1)
+    riak-client (0.8.2)
+      activesupport (>= 2.3.5)
+      i18n (~> 0.4.0)
+    sinatra (1.1.0)
+      rack (~> 1.1)
+      tilt (~> 1.1)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    tilt (1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  daemons
+  haml (>= 2.2)
+  riak-client (~> 0.8.0)
+  sinatra (>= 1.0)
+  thin

@@ -61,6 +61,7 @@ get '/:code' do
     url = obj.data
     next_tick.call(lambda {
                      Riak::Bucket.new(client, "clicks_#{params[:code]}").new.tap do |click|
+                       click.content_type = "text/plain"
                        click.data = Time.now.to_i
                        click.store(:w => 0)
                      end
